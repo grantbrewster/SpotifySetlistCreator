@@ -1,7 +1,6 @@
 # python web scraper
 # https://github.com/mileshenrichs/spotify-playlist-generator
 
-
 import urllib.request
 from bs4 import BeautifulSoup
 
@@ -34,5 +33,8 @@ def getArtist(soup):
     artist = ""
     artistContainers = soup.find_all('div', class_ = 'setlistHeadline')
     artist = artistContainers[0].h1.strong.span.a.text
+    if (artist == "") :
+        artist = artist = artistContainers[0].h1.strong.span.a.span
+    
     return artist
 

@@ -12,6 +12,12 @@ scope = "playlist-modify-private"
 
 # ids
 
+# redirect_uri = "your-redirectURI"
+# clientId = "your-clientid"
+# clientSecret = "your-clientSecret"
+
+# spotifyUserId = "your-spotifyUserId"
+
 redirect_uri = "your-redirectURI"
 clientId = "your-clientid"
 clientSecret = "your-clientSecret"
@@ -47,15 +53,12 @@ def findSong(name, artist):
     res = r.json()
     # iterate through results
     for result in res['tracks']['items']:
-
         trackArtist = result['artists']
-
         for i in trackArtist:
-            if i["name"] == artist:
+            if i["name"].lower() == artist:
                 songId = result['id']
                 return songId
                 
-
     return songId
 
 # returns today's date as simple string (i.e. 10/08, 4/22)
@@ -69,7 +72,6 @@ def getTodaysDate():
 # builds a new playlist on my Spotify account w/ tracks corresponding to provided song ids
 def createPlaylist(songIds):
     # initialize playlist
-    todaysDate = getTodaysDate()
 
     playlistName = 'SetList for {} Concert'.format(artist)
 
@@ -108,6 +110,9 @@ def addTracksToPlaylist(playlistId, playlistName, songIds):
 # if testRequest.status_code in [401, 403]:
 #     spotifyToken = getNewAccessToken()
 
+print ("what is your spotify userId? It is the numbers following when you share your account page. For example : https://open.spotify.com/user/1222222222?xxxxx. Then 1222222222 is your id")
+spotifyUserId = input()
+
 spotifyToken = getNewAccessToken()
 
 # song candidates are songs to be added to playlist if
@@ -115,7 +120,7 @@ spotifyToken = getNewAccessToken()
 # 2) they haven't already been added to current/prev playlist
 songCandidates = scraper.getSongNames()
 
-artist = scraper.artist
+artist = scraper.artist.lower()
 
 # define song ids to add list
 songIdsToAdd = []
