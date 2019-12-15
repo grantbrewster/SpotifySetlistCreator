@@ -1,4 +1,3 @@
-import sqlite3
 import requests
 from bs4 import BeautifulSoup
 import urllib.parse
@@ -25,7 +24,6 @@ clientSecret = "your-clientSecret"
 spotifyUserId = "your-spotifyUserId"
 
 spotifyToken = ""
-
 
     
 # ====================== METHOD DEFINITIONS ========================
